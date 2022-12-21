@@ -1,0 +1,19 @@
+.header {
+    max-width: calc(1280px - 2*200px);
+    padding: 45px 0 40px;
+    background-color: #000;
+    margin: 0 auto;
+    border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 879px) {
+    .header{
+        padding-left: 27px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .header {
+        padding: 28px 0 31.6px 27px;
+    }
+}
