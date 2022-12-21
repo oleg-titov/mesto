@@ -13,9 +13,9 @@
 * HTML
 * CSS
 * JavaScript
+* Git
 * Flex
 * Grid
-* Git
 
 **Figma**
 
