@@ -15,9 +15,15 @@
 @media screen and (max-width: 767px) {
     .profile__title {
         padding: 0 10px 14px 0;
-        font-style: normal;
-        font-weight: 500;
         font-size: 27px;
         line-height: 33px;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile__title {
+        max-width: 254px;
+        padding-bottom: 7px;
     }
 }
