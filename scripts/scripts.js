@@ -1,6 +1,6 @@
 /* Константы */
 const buttonEdit = document.querySelector('.profile__edit-button'); // Кпопка редактирования профиля
-const formEditClose = document.querySelector('.popup__close'); // Ссылка на закрытие окна редактирования профиля
+const formEditClose = document.querySelector('.popup__close-icon'); // Ссылка на закрытие окна редактирования профиля
 const formEdit = document.querySelector('.popup'); // Модальное окно
 const buttonLike = document.querySelectorAll('.elements__like'); // Выбор всех кнопок like
 
