@@ -1,6 +1,6 @@
 .profile__content {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: row;
 }
 
@@ -8,5 +8,6 @@
     .profile__content {
         flex-direction: column;
         padding-bottom: 34px;
+        align-items: center;
     }
 }

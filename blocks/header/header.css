@@ -1,7 +1,7 @@
 .header {
     box-sizing: border-box;
     max-width: calc(1280px - 2*200px);
-    padding: 45px 0 41px;
+    padding: 45px 0 36px;
     background-color: #000;
     margin: 0 auto;
     border-bottom: 1px solid rgba(84,84,84,.7);
