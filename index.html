@@ -26,54 +26,7 @@
                 <button type="button" class="profile__add-button" aria-label="Кнока добавления карточки"></button>
             </section>
             <section class="elements">
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_Elbrus.jpg" alt="Фото Эльбруcа, возвышающегося над облаками" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Гора Эльбрус</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_dombay.jpg" alt="Фото гор Домбая" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Домбай</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_karachaevsk.jpg" alt="Фото заброшенного храма в горах" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Карачаево-Черкесия</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_kamchatka.jpg" alt="Фото медведя в реке на фоне потухшего вулкана" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Камчатка</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_south_ural.jpg" alt="Фото реки Ай" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Южный Урал</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
-                <div class="elements__element">
-                    <img class="elements__image" src="./images/element_khibiny.jpg" alt="Фото зимнего северного сияния" />
-                    <div class="elements__element-title">
-                        <h2 class="elements__text">Хибины</h2>
-                        <button class="elements__like" type="button" aria-label="Кнопка like"></button>
-                    </div>
-                    <button class="elements__delete" type="button" aria-label="Кнока Delete"></button>
-                </div>
+                <!-- Карточки добавляются с помощью скрипта через цикл и через функцию добавления карточек вручную -->
             </section>
         </main>
         <footer class="footer">
@@ -95,7 +48,7 @@
                 <form class="popup__add-form" name="add-form">
                     <h2 class="popup__title">Новое место</h2>
                     <input type="text" id="placeName" name="place" class="popup__input" placeholder="Название" minlength="2" maxlength="50" />
-                    <input type="text" id="imageLink" name="image-link" class="popup__input" placeholder="Ссылка на изображение" minlength="2" maxlength="50" />
+                    <input type="text" id="imageLink" name="image-link" class="popup__input" placeholder="Ссылка на изображение" minlength="2" maxlength="250" />
                     <button type="submit" class="popup__button-submit" aria-label="Кнопка создания" id="buttonCreate">Создать</button>
                     <button type="button" class="popup__close-icon" id="add-form-close-icon" aria-label="Кнопка закрытия"></button>
                 </form>
