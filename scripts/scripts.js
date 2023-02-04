@@ -55,18 +55,18 @@ const buttonsHide = document.querySelectorAll('.popup__close-icon'); // Масс
 addStartCards(initialCards); // Вызов функции добавления изначальных карточек
 
 /* Функции */
+function openPopup(element) { // Функция добавления видимости модальному окну
+  element.classList.add('popup_opened');
+}
 function addEditForm() { // Функция добавления класса "видимости" модальному окну редактирования профиля
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
-  formEdit.classList.add('popup_opened');
+  openPopup(formEdit);
 }
 function addAddForm() { // Функция добавления класса "видимости" модальному окну добавления карточки
-  addElement.classList.add('popup_opened');
+  openPopup(addElement);
   placeName.value = '';
   imageLink.value = '';
-}
-function showImageCard() { // Функция добавления класса "видимости" вывода изображения
-  showImage.classList.add('popup_opened');
 }
 function removeImageCard() {// Функция удаления класса "видимости" вывода изображения
   showImage.classList.remove('popup_opened');
@@ -92,7 +92,7 @@ function toggleLike(card) { // Функция активации / деакти�
 function showImagePopup (image, name) { // Функция показа выбранного изображения
     popupImage.src = image.src;
     popupSubtitle.textContent = image.alt;
-    showImageCard();
+    openPopup(showImage);
 }
 function addStartCards(elements) { // Функция добавления изначальных карточек
   elements.forEach(({ name, link }) => {
