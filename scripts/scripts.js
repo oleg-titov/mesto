@@ -58,6 +58,9 @@ addStartCards(initialCards); // Вызов функции добавления �
 function openPopup(element) { // Функция добавления видимости модальному окну
   element.classList.add('popup_opened');
 }
+function closePopup(element) { // Функция удаления видимости модальному окну
+  element.classList.remove('popup_opened');
+}
 function addEditForm() { // Функция добавления класса "видимости" модальному окну редактирования профиля
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
@@ -68,20 +71,17 @@ function addAddForm() { // Функция добавления класса "в�
   placeName.value = '';
   imageLink.value = '';
 }
-function removeImageCard() {// Функция удаления класса "видимости" вывода изображения
-  showImage.classList.remove('popup_opened');
-}
 function handleFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   nameElement.textContent = nameInput.value;
   jobElement.textContent = jobInput.value;
-  formEdit.classList.remove('popup_opened'); // Закрытие модального окна после нажатия на кнопку "Сохранить"
+  closePopup(formEdit);
 }
 function addCard(evt) { // Функция добавления новой карточки
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const cardElement = createCard(placeName.value, imageLink.value);
   elements.prepend(cardElement);
-  addElement.classList.remove('popup_opened'); // Закрытие модального окна
+  closePopup(addElement);
 }
 function deleteElement(btn) { // Фукция удаления карточки
   btn.closest(".elements__element").remove();
@@ -104,7 +104,7 @@ function createStartCard(name, link) { // Функция добавления о
   elements.prepend(cardElement); // Добавление дублированной заготовки в начало секции
 }
 function createCard(name, link) { // Функция создания новой карточки
-  const el = templateCard.content.cloneNode(true);
+  const el = templateCard.content.querySelector('.elements__element').cloneNode(true);
 
   const cardDelete = el.querySelector('.elements__delete');
   const cardLike = el.querySelector('.elements__like');
