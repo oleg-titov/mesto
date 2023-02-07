@@ -129,6 +129,6 @@ addElement.addEventListener('submit', addCard); // Нажатие на кноп�
 buttonsHide.forEach(function (btn) { // Нажатие на любую из 3-х кнопок закрытия модального окна
   btn.addEventListener("click", function () {
     const popupForm = btn.closest(".popup");
-    popupForm.classList.remove("popup_opened");
+    closePopup(popupForm);
   })
 })
