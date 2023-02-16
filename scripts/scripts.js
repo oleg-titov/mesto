@@ -5,20 +5,20 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Южный урал',
+    link: 'https://kartinkin.net/pics/uploads/posts/2022-08/1660348995_43-kartinkin-net-p-stolitsa-yuzhnogo-urala-krasivo-foto-45.jpg'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Эльбрус',
+    link: 'https://static.tildacdn.com/tild6561-6466-4538-b365-303161626264/elbrus.jpg'
   },
   {
     name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    link: 'https://damion.club/uploads/posts/2022-09/1663813736_19-damion-club-p-kamchatka-priroda-priroda-oboi-25.jpg'
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Хибины',
+    link: 'https://content-18.foto.my.mail.ru/community/supercards/_groupsphoto/h-20383.jpg'
   },
   {
     name: 'Байкал',
@@ -29,9 +29,11 @@ const initialCards = [
 /* Константы */
 const buttonEdit = document.querySelector('.profile__edit-button'); // Кпопка редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); // Кнопка открытия окна добавления карточки
-const formEdit = document.querySelector('.popup'); // Модальное окно
+const formEdit = document.querySelector('.popup-edit'); // Модальное окно редактирования профиля
 const formElement = document.querySelector('.popup__edit-form'); // Форма редактирования профиля в DOM
 const addElement = document.querySelector('#addCard'); // Форма добавления карточки в DOM
+
+const popupList = document.querySelectorAll('.popup'); // Массив попапов
 
 const showImage = document.querySelector('#showImage'); // Форма для вывода увеличенного изображения
 const popupImage = showImage.querySelector('.popup__image'); // Изображение в увеличенном виде
@@ -46,21 +48,33 @@ const templateCard = document.querySelector("#templateCard"); // Заготов�
 const nameElement = document.querySelector('.profile__title'); // Значение имени в HTML
 const jobElement = document.querySelector('.profile__description'); // Значение описания в HTML
 
-// Находим поля формы в DOM
 const nameInput = document.querySelector('#name'); // Поле имени в модальном окне
 const jobInput = document.querySelector('#about'); // Поле описания в модальном окне
 
-const buttonsHide = document.querySelectorAll('.popup__close-icon'); // Массив кнопок закрытия модальных окон
+//const buttonsHide = document.querySelectorAll('.popup__close-icon'); // Массив кнопок закрытия модальных окон
 
 addStartCards(initialCards); // Вызов функции добавления изначальных карточек
 
 /* Функции */
+
+function handleEscape(evt) { // Нажатие на клавишу esc
+  if (evt.key === 'Escape') {
+    popupList.forEach(el => {
+      if (el.classList.contains('popup_opened')) {
+        closePopup(el);
+      }
+    })
+  }
+}
+
 function openPopup(element) { // Функция добавления видимости модальному окну
   element.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscape);
 }
 function closePopup(element) { // Функция удаления видимости модальному окну
   element.classList.remove('popup_opened');
 }
+
 function addEditForm() { // Функция добавления класса "видимости" модальному окну редактирования профиля
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
@@ -126,9 +140,20 @@ formElement.addEventListener('submit', handleFormSubmit); // Нажатие на
 buttonAdd.addEventListener('click', addAddForm); // Нажатие на кнопку добавления карточки
 addElement.addEventListener('submit', addCard); // Нажатие на кнопку "Создать"
 
-buttonsHide.forEach(function (btn) { // Нажатие на любую из 3-х кнопок закрытия модального окна
-  btn.addEventListener("click", function () {
-    const popupForm = btn.closest(".popup");
-    closePopup(popupForm);
-  })
+// buttonsHide.forEach(function (btn) { // Нажатие на любую из 3-х кнопок закрытия модального окна
+//   btn.addEventListener('click', function () {
+//     const popupForm = btn.closest('.popup');
+//     closePopup(popupForm);
+//   })
+// })
+
+popupList.forEach(function (el) {
+  el.addEventListener('mousedown', function (evt) {
+    if (evt.target.classList.contains('popup__content')) { // Закрытие попапа кликом на оверлей 
+      closePopup(el);
+    }
+    if (evt.target.classList.contains('popup__close-icon')) { // Нажатие на любую из 3-х кнопок закрытия модального окна
+      closePopup(el);
+    }
+  });
 })

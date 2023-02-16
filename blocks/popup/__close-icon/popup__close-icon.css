@@ -9,6 +9,7 @@
     cursor: pointer;
     background-size: cover;
     border: none;
+    transition: opacity .5s ease-in-out;
 }
 
 .popup__close-icon:hover {
