@@ -29,8 +29,8 @@ const initialCards = [
 /* Константы */
 const buttonEdit = document.querySelector('.profile__edit-button'); // Кпопка редактирования профиля
 const buttonAdd = document.querySelector('.profile__add-button'); // Кнопка открытия окна добавления карточки
-const formEdit = document.querySelector('.popup-edit'); // Модальное окно редактирования профиля
-const formElement = document.querySelector('.popup__edit-form'); // Форма редактирования профиля в DOM
+const profilePopup = document.querySelector('.popup-edit'); // Модальное окно редактирования профиля
+const profileForm = document.querySelector('.popup__edit-form'); // Форма редактирования профиля в DOM
 const addElement = document.querySelector('#addCard'); // Форма добавления карточки в DOM
 
 const popupList = document.querySelectorAll('.popup'); // Массив попапов
@@ -73,28 +73,30 @@ function openPopup(element) { // Функция добавления видим�
 }
 function closePopup(element) { // Функция удаления видимости модальному окну
   element.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscape);
 }
 
-function addEditForm() { // Функция добавления класса "видимости" модальному окну редактирования профиля
+function openProfilePopup() { // Функция добавления класса "видимости" модальному окну редактирования профиля
   nameInput.value = nameElement.textContent;
   jobInput.value = jobElement.textContent;
-  openPopup(formEdit);
+  openPopup(profilePopup);
 }
-function addAddForm() { // Функция добавления класса "видимости" модальному окну добавления карточки
+function openAddForm() { // Функция добавления класса "видимости" модальному окну добавления карточки
   openPopup(addElement);
-  placeName.value = '';
-  imageLink.value = '';
 }
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   nameElement.textContent = nameInput.value;
   jobElement.textContent = jobInput.value;
-  closePopup(formEdit);
+  closePopup(profilePopup);
 }
 function addCard(evt) { // Функция добавления новой карточки
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const cardElement = createCard(placeName.value, imageLink.value);
   elements.prepend(cardElement);
+  evt.target.reset()
+  // placeName.value = '';
+  // imageLink.value = '';
   closePopup(addElement);
 }
 function deleteElement(btn) { // Фукция удаления карточки
@@ -105,6 +107,7 @@ function toggleLike(card) { // Функция активации / деакти�
 }
 function showImagePopup (image, name) { // Функция показа выбранного изображения
     popupImage.src = image.src;
+    popupImage.alt = image.alt;
     popupSubtitle.textContent = image.alt;
     openPopup(showImage);
 }
@@ -122,11 +125,12 @@ function createCard(name, link) { // Функция создания новой 
 
   const cardDelete = el.querySelector('.elements__delete');
   const cardLike = el.querySelector('.elements__like');
+  const cardTitle = el.querySelector('.elements__text');
   const cardImage = el.querySelector('.elements__image');
 
-  el.querySelector("#templateCardText").textContent = name;
-  el.querySelector("#templateCardLink").alt = name;
-  el.querySelector("#templateCardLink").src = link;
+  cardTitle.textContent = name;
+  cardImage.alt = name;
+  cardImage.src = link;
 
   cardDelete.addEventListener('click', () => deleteElement(cardDelete));
   cardLike.addEventListener('click', () => toggleLike(cardLike));
@@ -135,9 +139,9 @@ function createCard(name, link) { // Функция создания новой 
   return el;
 }
 /* События */
-buttonEdit.addEventListener('click', addEditForm); // Нажатие на кнопку редактирования
-formElement.addEventListener('submit', handleFormSubmit); // Нажатие на кнопку "Сохранить"
-buttonAdd.addEventListener('click', addAddForm); // Нажатие на кнопку добавления карточки
+buttonEdit.addEventListener('click', openProfilePopup); // Нажатие на кнопку редактирования
+profileForm.addEventListener('submit', handleProfileFormSubmit); // Нажатие на кнопку "Сохранить"
+buttonAdd.addEventListener('click', openAddForm); // Нажатие на кнопку добавления карточки
 addElement.addEventListener('submit', addCard); // Нажатие на кнопку "Создать"
 
 // buttonsHide.forEach(function (btn) { // Нажатие на любую из 3-х кнопок закрытия модального окна

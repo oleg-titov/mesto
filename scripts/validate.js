@@ -21,6 +21,12 @@ function enableValidate(config) {
 
         addInputListeners(form, config);
         toggleButton(form, config);
+
+        form.addEventListener('reset', function() {
+            setTimeout(function() {
+                toggleButton(form, config);
+            }, 0);
+        });
     })
 }
 
@@ -44,9 +50,7 @@ function toggleButton(form, config) {
 
     buttonSubmit.disabled = !isFormValidity;
 
-    buttonSubmit.classList.toggle('popup__button-submit_disabled', !isFormValidity);
-
-    console.log(isFormValidity);
+    buttonSubmit.classList.toggle(config.buttonDisabledClass, !isFormValidity);
 };
 
 function addInputListeners(form, config) {
