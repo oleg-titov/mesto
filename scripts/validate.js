@@ -1,3 +1,5 @@
+import FormValidator from "./FormValidator.js";
+
 const formValidationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -6,61 +8,67 @@ const formValidationConfig = {
     buttonDisabledClass: 'popup__button-submit_disabled'
 };
 
-function disableSumbmit(evt) { // Отмена отправки формы
-    evt.preventDefault();
-};
+const forms = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
+forms.forEach((form) => {
+    const formValidator = new FormValidator(formValidationConfig, form);
+    formValidator.enableValidation();
+});
 
-function enableValidate(config) {
-    const formList = Array.from(document.querySelectorAll(config.formSelector)); // Массив форм на странице
+// function disableSumbmit(evt) { // Отмена отправки формы
+//     evt.preventDefault();
+// };
 
-    formList.forEach(function (form) {
-        form.addEventListener('submit', disableSumbmit);
-        form.addEventListener('input', function () {
-            toggleButton(form, config);
-        });
+// function enableValidate(config) {
+//     const formList = Array.from(document.querySelectorAll(config.formSelector)); // Массив форм на странице
 
-        addInputListeners(form, config);
-        toggleButton(form, config);
+//     formList.forEach(function (form) {
+//         form.addEventListener('submit', disableSumbmit);
+//         form.addEventListener('input', function () {
+//             toggleButton(form, config);
+//         });
 
-        form.addEventListener('reset', function() {
-            setTimeout(function() {
-                toggleButton(form, config);
-            }, 0);
-        });
-    })
-}
+//         addInputListeners(form, config);
+//         toggleButton(form, config);
 
-function handleFormInput(evt, config) {
-    const input = evt.target; // Узнаём, какое поле ввода сработало
-    const inputID = input.id; // ID поля ввода
-    const errorSpan = document.querySelector(`#${inputID}-error`);
+//         form.addEventListener('reset', function() {
+//             setTimeout(function() {
+//                 toggleButton(form, config);
+//             }, 0);
+//         });
+//     })
+// }
 
-    if (input.validity.valid) {
-        input.classList.remove(config.errorClass);
-        errorSpan.textContent = '';
-    } else {
-        input.classList.add(config.errorClass);
-        errorSpan.textContent = input.validationMessage;
-    }
-};
+// function handleFormInput(evt, config) {
+//     const input = evt.target; // Узнаём, какое поле ввода сработало
+//     const inputID = input.id; // ID поля ввода
+//     const errorSpan = document.querySelector(`#${inputID}-error`);
 
-function toggleButton(form, config) {
-    const buttonSubmit = form.querySelector(config.buttonSelector);
-    const isFormValidity = form.checkValidity();
+//     if (input.validity.valid) {
+//         input.classList.remove(config.errorClass);
+//         errorSpan.textContent = '';
+//     } else {
+//         input.classList.add(config.errorClass);
+//         errorSpan.textContent = input.validationMessage;
+//     }
+// };
 
-    buttonSubmit.disabled = !isFormValidity;
+// function toggleButton(form, config) {
+//     const buttonSubmit = form.querySelector(config.buttonSelector);
+//     const isFormValidity = form.checkValidity();
 
-    buttonSubmit.classList.toggle(config.buttonDisabledClass, !isFormValidity);
-};
+//     buttonSubmit.disabled = !isFormValidity;
 
-function addInputListeners(form, config) {
-    const inputList = Array.from(form.querySelectorAll(config.inputSelector)); // Массив всех полей для формы
+//     buttonSubmit.classList.toggle(config.buttonDisabledClass, !isFormValidity);
+// };
 
-    inputList.forEach(function (item) {
-        item.addEventListener('input', function (evt) {
-            handleFormInput(evt, config);
-        });
-    });
-};
+// function addInputListeners(form, config) {
+//     const inputList = Array.from(form.querySelectorAll(config.inputSelector)); // Массив всех полей для формы
 
-enableValidate(formValidationConfig);
+//     inputList.forEach(function (item) {
+//         item.addEventListener('input', function (evt) {
+//             handleFormInput(evt, config);
+//         });
+//     });
+// };
+
+// enableValidate(formValidationConfig);
