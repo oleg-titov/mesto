@@ -1,50 +1,57 @@
 export default class FormValidator {
-    constructor(config, form) {
-        this._config = config;
-        this._form = form;
-        this._buttonSubmit = this._form.querySelector(this._config.buttonSelector);
-        this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    constructor(config, formElement) {
+        this._formElement = formElement;
+        this._inputSelector = config.inputSelector;
+        this._submitButtonSelector = config.buttonSelector;
+        this._inactiveButtonClass = config.buttonDisabledClass;
+        this._inputErrorClass = config.errorClass;
     }
-    _showInputError(input) {
-        const errorSpan = this._form.querySelector(`#${input.id}-error`);
-        input.classList.add(this._config.errorClass);
-        errorSpan.textContent = input.validationMessage;
+    _showInputError(inputElement, errorMessage) {
+        const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+        inputElement.classList.add(this._inputErrorClass);
+        errorElement.textContent = errorMessage;
+        errorElement.classList.add(`${this._inputErrorClass}_active`);
     }
-    _hideInputError(input) {
-        const errorSpan = this._form.querySelector(`#${input.id}-error`);
-        input.classList.remove(this._config.errorClass);
-        errorSpan.textContent = '';
+    _hideInputError(inputElement) {
+        const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+        inputElement.classList.remove(this._inputErrorClass);
+        errorElement.textContent = '';
+        errorElement.classList.remove(`${this._inputErrorClass}_active`);
     }
-    _checkInputValidity(input) {
-        if (!input.validity.valid) {
-            this._showInputError(input);
+    _checkInputValidity(inputElement) {
+        if (!inputElement.validity.valid) {
+            this._showInputError(inputElement, inputElement.validationMessage);
         } else {
-            this._hideInputError(input);
+            this._hideInputError(inputElement);
         }
     }
     _toggleButtonState() {
-        const isFormValid = this._form.checkValidity();
-        this._buttonSubmit.disabled = !isFormValid;
-        this._buttonSubmit.classList.toggle(this._config.buttonDisabledClass, !isFormValid);
+        const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+        const isFormValid = this._formElement.checkValidity();
+        buttonElement.disabled = !isFormValid;
+        buttonElement.classList.toggle(this._inactiveButtonClass, !isFormValid);
     }
     _setEventListeners() {
-        this._inputList.forEach((input) => {
-            input.addEventListener('input', () => {
-                this._checkInputValidity(input);
+        const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+        inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', () => {
+                this._checkInputValidity(inputElement);
                 this._toggleButtonState();
             });
         });
-        this._form.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-        });
-        this._form.addEventListener('reset', () => {
-            this._inputList.forEach((input) => {
-                this._hideInputError(input);
-            });
-            this._toggleButtonState();
+        this._formElement.addEventListener('reset', () => {
+            setTimeout(() => {
+                inputList.forEach((inputElement) => {
+                    this._hideInputError(inputElement);
+                });
+                this._toggleButtonState();
+            }, 0);
         });
     }
     enableValidation() {
+        this._formElement.addEventListener('submit', this._disableSubmit);
         this._setEventListeners();
+        this._toggleButtonState();
+        this._formElement.dispatchEvent(new Event('input')); // эмулируем событие 'input' для первоначальной проверки валидности формы
     }
-}
+}  

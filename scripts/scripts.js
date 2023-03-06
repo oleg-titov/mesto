@@ -85,9 +85,9 @@ function addCard(evt) { // Функция добавления новой кар
 // }
 function addStartCards(element) {
   element.forEach(({ name, link }) => {
-    const card = new Card({name, link}, '#templateCard');
-    const cardElement = card.generateCard();
-    elements.prepend(cardElement);
+    //const card = new Card({name, link}, '#templateCard');
+    //const cardElement = card.generateCard();
+    elements.prepend(createCard(name, link));
   });
 }
 // function createStartCard(name, link) { // Функция добавления одной изначальной карточки
